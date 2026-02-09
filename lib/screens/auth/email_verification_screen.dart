@@ -6,7 +6,7 @@ import '../../core/themes/app_theme.dart';
 import '../../providers/auth_provider.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
-  const EmailVerificationScreen({Key? key}) : super(key: key);
+  const EmailVerificationScreen({super.key});
 
   @override
   State<EmailVerificationScreen> createState() =>

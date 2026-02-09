@@ -1,67 +1,101 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // Primary Colors
-  static const Color primaryColor = Color(0xFF6C63FF);
-  static const Color primaryLight = Color(0xFF9C95FF);
-  static const Color primaryDark = Color(0xFF4A42D6);
+  // Primary Colors - Light Blue to Light Purple Gradient Palette
+  static const Color lightBlue = Color(0xFFE3F2FD);    // Light Blue 50
+  static const Color lightBlue100 = Color(0xFFBBDEFB); // Light Blue 100
+  static const Color lightBlue200 = Color(0xFF90CAF9); // Light Blue 200
+  static const Color lightBlue300 = Color(0xFF64B5F6); // Light Blue 300
+  static const Color lightBlue400 = Color(0xFF42A5F5); // Light Blue 400
+  static const Color lightBlue500 = Color(0xFF2196F3); // Light Blue 500
   
-  // Secondary Colors
-  static const Color secondaryColor = Color(0xFFFF6584);
-  static const Color secondaryLight = Color(0xFFFF94AA);
-  static const Color secondaryDark = Color(0xFFD94666);
-  
-  // Accent Colors
-  static const Color accentGold = Color(0xFFFFD700);
-  static const Color accentOrange = Color(0xFFFFA500);
-  static const Color accentPurple = Color(0xFF9C27B0);
-  
-  // Background Colors
-  static const Color backgroundLight = Color(0xFFF8F9FA);
-  static const Color backgroundDark = Color(0xFF1A1A2E);
-  static const Color surfaceLight = Color(0xFFFFFFFF);
-  static const Color surfaceDark = Color(0xFF16213E);
-  
-  // Text Colors
-  static const Color textPrimaryLight = Color(0xFF2D3436);
-  static const Color textSecondaryLight = Color(0xFF636E72);
-  static const Color textPrimaryDark = Color(0xFFF8F9FA);
-  static const Color textSecondaryDark = Color(0xFFB2BEC3);
-  
-  // Status Colors
-  static const Color success = Color(0xFF00B894);
-  static const Color error = Color(0xFFFF7675);
-  static const Color warning = Color(0xFFFDCB6E);
-  static const Color info = Color(0xFF74B9FF);
-  
+  static const Color lightPurple = Color(0xFFF3E5F5);    // Purple 50
+  static const Color lightPurple100 = Color(0xFFE1BEE7); // Purple 100
+  static const Color lightPurple200 = Color(0xFFCE93D8); // Purple 200
+  static const Color lightPurple300 = Color(0xFFBA68C8); // Purple 300
+  static const Color lightPurple400 = Color(0xFFAB47BC); // Purple 400
+  static const Color lightPurple500 = Color(0xFF9C27B0); // Purple 500
+
   // Gradient Definitions
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [primaryColor, primaryLight],
+    colors: [lightBlue200, lightPurple200],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
   
+  static const LinearGradient primaryGradientVertical = LinearGradient(
+    colors: [lightBlue100, lightPurple100],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+  
+  static const LinearGradient buttonGradient = LinearGradient(
+    colors: [lightBlue400, lightPurple400],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+  
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Colors.white, lightBlue],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+  
+  static const LinearGradient backgroundGradient = LinearGradient(
+    colors: [lightPurple, lightBlue],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.0, 1.0],
+  );
+  
+  static const LinearGradient cosmicGradient = LinearGradient(
+    colors: [Color(0xFF1A237E), Color(0xFF4A148C), Color(0xFF311B92)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  // Accent Colors
+  static const Color accentGold = Color(0xFFFFD700);
+  static const Color accentOrange = Color(0xFFFFA726);
+  static const Color accentPink = Color(0xFFF48FB1);
+  
+  // Legacy aliases for backward compatibility
+  static const Color primaryColor = lightBlue500;
+  static const Color primaryLight = lightBlue200;
+  static const Color secondaryColor = lightPurple500;
+  static const Color secondaryLight = lightPurple300;
+  
+  // Gradients
   static const LinearGradient goldGradient = LinearGradient(
     colors: [accentGold, accentOrange],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
   
-  static const LinearGradient cosmicGradient = LinearGradient(
-    colors: [Color(0xFF1A1A2E), Color(0xFF16213E), Color(0xFF0F3460)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
+  // Status Colors
+  static const Color success = Color(0xFF66BB6A);
+  static const Color error = Color(0xFFEF5350);
+  static const Color warning = Color(0xFFFFA726);
+  static const Color info = Color(0xFF42A5F5);
+
+  // Background Colors
+  static const Color backgroundLight = Color(0xFFF8F9FA);
+  static const Color surfaceLight = Colors.white;
+  
+  // Text Colors
+  static const Color textPrimaryLight = Color(0xFF1A237E);
+  static const Color textSecondaryLight = Color(0xFF5C6BC0);
+  static const Color textPrimaryDark = Colors.white;
+  static const Color textSecondaryDark = Color(0xFFB39DDB);
 
   // Light Theme
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundLight,
     colorScheme: const ColorScheme.light(
-      primary: primaryColor,
-      secondary: secondaryColor,
+      primary: lightBlue500,
+      secondary: lightPurple500,
       surface: surfaceLight,
       background: backgroundLight,
       error: error,
@@ -71,12 +105,12 @@ class AppTheme {
       onBackground: textPrimaryLight,
       onError: Colors.white,
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       elevation: 0,
       centerTitle: true,
-      backgroundColor: surfaceLight,
+      backgroundColor: lightBlue.withValues(alpha: 0.7),
       foregroundColor: textPrimaryLight,
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: textPrimaryLight,
@@ -85,38 +119,41 @@ class AppTheme {
     cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
       ),
+      color: surfaceLight,
+      shadowColor: lightPurple200.withValues(alpha: 0.3),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: surfaceLight,
+      fillColor: lightBlue.withValues(alpha: 0.3),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: lightBlue200.withValues(alpha: 0.5)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: primaryColor, width: 2),
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: lightPurple300, width: 2),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: const BorderSide(color: error, width: 1),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      hintStyle: TextStyle(color: textSecondaryLight.withValues(alpha: 0.6)),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
-        backgroundColor: primaryColor,
+        backgroundColor: lightBlue500,
         foregroundColor: Colors.white,
         textStyle: const TextStyle(
           fontSize: 16,
@@ -126,7 +163,7 @@ class AppTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: primaryColor,
+        foregroundColor: lightPurple500,
         textStyle: const TextStyle(
           fontWeight: FontWeight.w600,
         ),
@@ -136,28 +173,42 @@ class AppTheme {
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
-        side: const BorderSide(color: primaryColor),
-        foregroundColor: primaryColor,
+        side: const BorderSide(color: lightBlue400, width: 2),
+        foregroundColor: lightBlue500,
       ),
     ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: surfaceLight,
-      selectedItemColor: primaryColor,
-      unselectedItemColor: textSecondaryLight,
+      selectedItemColor: lightPurple500,
+      unselectedItemColor: textSecondaryLight.withValues(alpha: 0.5),
       type: BottomNavigationBarType.fixed,
       elevation: 8,
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
     ),
     chipTheme: ChipThemeData(
-      backgroundColor: primaryColor.withOpacity(0.1),
-      selectedColor: primaryColor,
+      backgroundColor: lightBlue.withValues(alpha: 0.5),
+      selectedColor: lightPurple200,
       labelStyle: const TextStyle(color: textPrimaryLight),
       secondaryLabelStyle: const TextStyle(color: Colors.white),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      side: BorderSide.none,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: lightPurple400,
+      foregroundColor: Colors.white,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
+    ),
+    dividerTheme: DividerThemeData(
+      color: lightBlue200.withValues(alpha: 0.5),
+      thickness: 1,
     ),
     textTheme: const TextTheme(
       displayLarge: TextStyle(
@@ -196,7 +247,7 @@ class AppTheme {
       labelLarge: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        color: primaryColor,
+        color: lightBlue500,
       ),
     ),
   );
@@ -205,13 +256,12 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: primaryLight,
-    scaffoldBackgroundColor: backgroundDark,
+    scaffoldBackgroundColor: const Color(0xFF1A1A2E),
     colorScheme: const ColorScheme.dark(
-      primary: primaryLight,
-      secondary: secondaryLight,
-      surface: surfaceDark,
-      background: backgroundDark,
+      primary: lightBlue300,
+      secondary: lightPurple300,
+      surface: Color(0xFF16213E),
+      background: Color(0xFF1A1A2E),
       error: error,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
@@ -222,7 +272,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,
-      backgroundColor: surfaceDark,
+      backgroundColor: Color(0xFF16213E),
       foregroundColor: textPrimaryDark,
       titleTextStyle: TextStyle(
         fontSize: 20,
@@ -232,40 +282,40 @@ class AppTheme {
     ),
     cardTheme: CardThemeData(
       elevation: 2,
-      color: surfaceDark,
+      color: const Color(0xFF16213E),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: surfaceDark,
+      fillColor: const Color(0xFF0F3460),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: primaryLight, width: 2),
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: lightPurple300, width: 2),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: const BorderSide(color: error, width: 1),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
-        backgroundColor: primaryLight,
+        backgroundColor: lightPurple400,
         foregroundColor: Colors.white,
         textStyle: const TextStyle(
           fontSize: 16,
@@ -275,27 +325,27 @@ class AppTheme {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: primaryLight,
+        foregroundColor: lightPurple300,
         textStyle: const TextStyle(
           fontWeight: FontWeight.w600,
         ),
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: surfaceDark,
-      selectedItemColor: primaryLight,
+      backgroundColor: Color(0xFF16213E),
+      selectedItemColor: lightPurple300,
       unselectedItemColor: textSecondaryDark,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
     ),
     chipTheme: ChipThemeData(
-      backgroundColor: surfaceDark,
-      selectedColor: primaryLight,
+      backgroundColor: const Color(0xFF0F3460),
+      selectedColor: lightPurple400,
       labelStyle: const TextStyle(color: textPrimaryDark),
       secondaryLabelStyle: const TextStyle(color: Colors.white),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
       ),
     ),
     textTheme: const TextTheme(
@@ -335,7 +385,7 @@ class AppTheme {
       labelLarge: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        color: primaryLight,
+        color: lightPurple300,
       ),
     ),
   );

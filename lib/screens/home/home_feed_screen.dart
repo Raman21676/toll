@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/themes/app_theme.dart';
 
 class HomeFeedScreen extends StatelessWidget {
-  const HomeFeedScreen({Key? key}) : super(key: key);
+  const HomeFeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

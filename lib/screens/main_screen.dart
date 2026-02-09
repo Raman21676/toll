@@ -6,7 +6,7 @@ import 'profile/user_profile_screen.dart';
 import '../widgets/create_post_bottom_sheet.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

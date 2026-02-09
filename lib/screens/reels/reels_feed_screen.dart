@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ReelsFeedScreen extends StatelessWidget {
-  const ReelsFeedScreen({Key? key}) : super(key: key);
+  const ReelsFeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

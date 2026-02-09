@@ -5,7 +5,7 @@ import '../../models/janma_kundali_model.dart';
 class KundaliDisplayScreen extends StatelessWidget {
   final JanmaKundali? kundali;
   
-  const KundaliDisplayScreen({Key? key, this.kundali}) : super(key: key);
+  const KundaliDisplayScreen({super.key, this.kundali});
 
   @override
   Widget build(BuildContext context) {

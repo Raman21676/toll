@@ -4,7 +4,7 @@ import '../../core/themes/app_theme.dart';
 class ChinaaMatchingScreen extends StatelessWidget {
   final String? userId;
   
-  const ChinaaMatchingScreen({Key? key, this.userId}) : super(key: key);
+  const ChinaaMatchingScreen({super.key, this.userId});
 
   @override
   Widget build(BuildContext context) {

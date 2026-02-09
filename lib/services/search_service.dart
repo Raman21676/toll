@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import '../core/constants/app_constants.dart';
 import '../models/user_model.dart';
+import '../models/birth_details_model.dart';
 import '../models/janma_kundali_model.dart';
 import 'astrology_service.dart';
 

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../core/themes/app_theme.dart';
 import '../../models/birth_details_model.dart';
-import '../../providers/auth_provider.dart';
 
 class BirthDetailsScreen extends StatefulWidget {
-  const BirthDetailsScreen({Key? key}) : super(key: key);
+  const BirthDetailsScreen({super.key});
 
   @override
   State<BirthDetailsScreen> createState() => _BirthDetailsScreenState();
@@ -64,7 +62,7 @@ class _BirthDetailsScreenState extends State<BirthDetailsScreen> {
     }
 
     // Create birth details and generate kundali
-    final birthDetails = BirthDetails(
+    final unusedBirthDetails = BirthDetails(
       birthDate: _selectedDate!,
       birthTime: _birthTimeUnknown
           ? DateTime(2000, 1, 1, 12, 0)
