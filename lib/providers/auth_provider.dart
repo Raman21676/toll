@@ -159,6 +159,13 @@ class AuthProvider with ChangeNotifier {
     return result['success'];
   }
   
+  // Reload user (for email verification check)
+  Future<void> reloadUser() async {
+    await _authService.reloadUser();
+    _firebaseUser = _authService.currentUser;
+    notifyListeners();
+  }
+  
   // Clear error
   void clearError() {
     _error = null;
