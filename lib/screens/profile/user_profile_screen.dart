@@ -1,19 +1,83 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/routes/app_routes.dart';
 import '../../core/themes/app_theme.dart';
 import '../../providers/auth_provider.dart';
+import '../../services/storage_service.dart';
+import '../../services/user_service.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
   final String? userId;
   
-  const UserProfileScreen({Key? key, this.userId}) : super(key: key);
+  const UserProfileScreen({super.key, this.userId});
+
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  final StorageService _storageService = StorageService();
+  final UserService _userService = UserService();
+  bool _isUploadingImage = false;
+
+  Future<void> _changeProfileImage() async {
+    // Show image source bottom sheet
+    final File? imageFile = await _storageService.showImageSourceBottomSheet(context);
+    
+    if (imageFile == null) return;
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final currentUser = authProvider.currentUser;
+    
+    if (currentUser == null) return;
+
+    setState(() {
+      _isUploadingImage = true;
+    });
+
+    // Upload image
+    final result = await _storageService.uploadProfileImage(
+      imageFile: imageFile,
+      userId: currentUser.uid,
+    );
+
+    if (result['success']) {
+      // Update user profile with new image URL
+      await _userService.updateUserProfile(
+        uid: currentUser.uid,
+        profileImageUrl: result['url'],
+      );
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile image updated!'),
+            backgroundColor: AppTheme.success,
+          ),
+        );
+      }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['error'] ?? 'Failed to upload image'),
+            backgroundColor: AppTheme.error,
+          ),
+        );
+      }
+    }
+
+    setState(() {
+      _isUploadingImage = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     final currentUser = authProvider.currentUser;
-    final isOwnProfile = userId == null || userId == currentUser?.uid;
+    final isOwnProfile = widget.userId == null || widget.userId == currentUser?.uid;
 
     return Scaffold(
       appBar: AppBar(
@@ -107,23 +171,28 @@ class UserProfileScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       )
-                    : null,
+                    : _isUploadingImage
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : null,
               ),
-              if (isOwnProfile)
+              if (isOwnProfile && !_isUploadingImage)
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.camera_alt,
-                      color: Colors.white,
-                      size: 20,
+                  child: GestureDetector(
+                    onTap: _changeProfileImage,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: AppTheme.primaryColor,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -231,7 +300,7 @@ class UserProfileScreen extends StatelessWidget {
             children: user.interests.map<Widget>((interest) {
               return Chip(
                 label: Text(interest),
-                backgroundColor: AppTheme.primaryColor.withOpacity(0.1),
+                backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.1),
               );
             }).toList(),
           ),
@@ -251,7 +320,7 @@ class UserProfileScreen extends StatelessWidget {
             children: user.hobbies.map<Widget>((hobby) {
               return Chip(
                 label: Text(hobby),
-                backgroundColor: AppTheme.accentGold.withOpacity(0.1),
+                backgroundColor: AppTheme.accentGold.withValues(alpha: 0.1),
               );
             }).toList(),
           ),
@@ -281,7 +350,7 @@ class UserProfileScreen extends StatelessWidget {
                 if (user.kundaliId == null)
                   TextButton(
                     onPressed: () {
-                      // Navigate to create kundali
+                      Navigator.pushNamed(context, AppRoutes.birthDetails);
                     },
                     child: const Text('Create'),
                   ),
@@ -304,6 +373,13 @@ class UserProfileScreen extends StatelessWidget {
                         color: Colors.grey.shade600,
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.birthDetails);
+                      },
+                      child: const Text('Create Kundali'),
+                    ),
                   ],
                 ),
               )
@@ -312,7 +388,7 @@ class UserProfileScreen extends StatelessWidget {
                 leading: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryColor.withOpacity(0.1),
+                    color: AppTheme.primaryColor.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -324,7 +400,7 @@ class UserProfileScreen extends StatelessWidget {
                 subtitle: const Text('Your birth chart is ready'),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  // Navigate to kundali display
+                  Navigator.pushNamed(context, AppRoutes.kundali);
                 },
               ),
           ],
