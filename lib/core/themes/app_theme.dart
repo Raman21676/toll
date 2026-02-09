@@ -82,7 +82,7 @@ class AppTheme {
         color: textPrimaryLight,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -230,7 +230,7 @@ class AppTheme {
         color: textPrimaryDark,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 2,
       color: surfaceDark,
       shape: RoundedRectangleBorder(
